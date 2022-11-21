@@ -1,25 +1,19 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const http = require('http')
+const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
-var bodyParser = require('body-parser')
+server.listen(PORT);
 
 require('./database/dbConnect');
 const users = require('./model/users');
 const sellers = require('./model/sellers');
 
-app.use(express.urlencoded({extended: true}));
-app.use(cors());
-app.use(bodyParser.json());
-
-const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
     cors: {
       origin: 'https://gconn.netlify.app',
     }
 })
-
-server.listen(PORT);
 
 let usersOnline = [];
 
@@ -80,8 +74,5 @@ io.on("connection", (socket)=>{
 
 app.get('/', async (req , res) => {
 
-    res.status(200).json({
-        status: 200,
-        data: "This Is Socket"
-    });
+    res.send("<h1>Hello Bg</h1?")
 });
