@@ -17,7 +17,9 @@ const io = require('socket.io')(server, {
     }
 })
 
-server.listen(PORT);
+server.listen(PORT, () => {
+    console.log('Express server listening on port', port)
+  });
 
 let usersOnline = [];
 
